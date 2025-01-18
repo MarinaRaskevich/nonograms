@@ -1,0 +1,16 @@
+{
+  "name": "marinaraskevich-jsfe2024q4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "MarinaRaskevich",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production"
+  }
+}
