@@ -2,6 +2,9 @@
 @use "../../node_modules/modern-normalize/modern-normalize.css";
 @use "abstracts/index";
 
+//Base
+@use "base/index" as base;
+
 //Layouts
 @use "layouts/index" as layouts;
 

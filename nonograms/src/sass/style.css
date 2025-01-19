@@ -178,28 +178,39 @@ summary {
   display: list-item;
 }
 
+.cell, .clue {
+  box-shadow: 1px 0 0 0 #000, 0 1px 0 0 #000, 1px 1px 0 0 #000, 1px 0 0 0 #000 inset, 0 1px 0 0 #000 inset;
+}
+
+.flex-container {
+  display: flex;
+}
+
 .layout-5-columns {
   display: grid;
-  grid-template-columns: 1fr repeat(5, 30px);
-  grid-template-rows: 1fr repeat(5, 30px);
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(5, 30px);
 }
 
 .layout-10-columns {
   display: grid;
-  grid-template-columns: 1fr repeat(10, 30px);
-  grid-template-rows: 1fr repeat(10, 30px);
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(10, 30px);
 }
 
 .layout-15-columns {
   display: grid;
-  grid-template-columns: 1fr repeat(15, 30px);
-  grid-template-rows: 1fr repeat(15, 30px);
+  grid-template-columns: repeat(15, 30px);
+  grid-template-rows: repeat(15, 30px);
 }
 
-.cell {
-  box-shadow: 1px 0 0 0 #000, 0 1px 0 0 #000, 1px 1px 0 0 #000, 1px 0 0 0 #000 inset, 0 1px 0 0 #000 inset;
+.empty-cell {
+  width: 30px;
+  height: 30px;
 }
 
-.nonogram-grid {
-  width: 1024px;
+.clue {
+  width: 30px;
+  height: 30px;
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */

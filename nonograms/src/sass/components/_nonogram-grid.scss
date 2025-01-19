@@ -1,8 +1,17 @@
-.cell {
-  box-shadow: 1px 0 0 0 #000, 0 1px 0 0 #000, 1px 1px 0 0 #000,
-    1px 0 0 0 #000 inset, 0 1px 0 0 #000 inset;
+@use "../abstracts/index" as *;
+
+.empty-cell {
+  width: $cell-size;
+  height: $cell-size;
 }
 
-.nonogram-grid {
-  width: 1024px;
+.cell {
+  @extend %cell-border;
+}
+
+.clue {
+  width: $cell-size;
+  height: $cell-size;
+  text-align: center;
+  @extend %cell-border;
 }

@@ -1,13 +1,13 @@
 @use "../abstracts/index" as *;
 
 .layout-5-columns {
-  @include grid($cells-number: 5, $cell-size: 30px);
+  @include grid($cells-number: 5, $cell-size: $cell-size);
 }
 
 .layout-10-columns {
-  @include grid($cells-number: 10, $cell-size: 30px);
+  @include grid($cells-number: 10, $cell-size: $cell-size);
 }
 
 .layout-15-columns {
-  @include grid($cells-number: 15, $cell-size: 30px);
+  @include grid($cells-number: 15, $cell-size: $cell-size);
 }
