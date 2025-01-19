@@ -22,5 +22,8 @@
     "style": "sass --watch src/sass/style.scss src/sass/style.css",
     "dev": "webpack --mode development",
     "prod": "webpack --mode production"
+  },
+  "dependencies": {
+    "modern-normalize": "^3.0.1"
   }
 }
