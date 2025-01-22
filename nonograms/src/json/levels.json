@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "easy",
+    "format": "5x5"
+  },
+  {
+    "id": 2,
+    "name": "medium",
+    "format": "10x10"
+  },
+  {
+    "id": 3,
+    "name": "hard",
+    "format": "15x15"
+  }
+]
