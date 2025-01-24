@@ -3,9 +3,11 @@ import { createElement } from "../models/utils";
 export class Nonogram {
   constructor(
     container,
+    isDemo,
     { id, difficulty, name, gridData, clues, gridSize = 5 }
   ) {
     this.container = container;
+    this.isDemo = isDemo;
     this.id = id;
     this.difficulty = difficulty;
     this.name = name;
@@ -99,6 +101,8 @@ export class Nonogram {
     if (isBottomBorder) classes.push("bottom-border");
     if (isTopBorder) classes.push("top-border");
     if (isLeftBorder) classes.push("left-border");
+    if (this.isDemo && this.gridData[rowIndex][colIndex] == 1)
+      classes.push("filled");
 
     const cell = createElement("div", classes);
     cell.dataset.row = rowIndex;
