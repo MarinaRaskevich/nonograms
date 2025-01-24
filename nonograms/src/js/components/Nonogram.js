@@ -14,7 +14,6 @@ export class Nonogram {
     this.gridSize = gridSize;
     this.maxLengthCol = null;
     this.maxLengthRow = null;
-    this.nonogramGrid = null;
   }
 
   renderGrid() {
@@ -26,114 +25,100 @@ export class Nonogram {
     );
 
     this.container.innerHTML = "";
-
-    const nonogramTop = createElement("div", [
-      "nonogram__top",
-      "flex-container",
-    ]);
-    const nonogramBottom = createElement("div", [
-      "nonogram__bottom",
-      "flex-container",
-    ]);
-    const nonogramGrid = createElement("div", [
-      "nonogram__grid",
-      `layout-${this.gridSize}-columns`,
-    ]);
-
-    const emptyCorner = createElement("div", [
-      "nonogram__empty-corner",
-      "flex-container",
-    ]);
-
-    const colCluesWrapper = createElement("div", [
-      "nonogram__clues",
-      "nonogram__clues--column",
-      "flex-container",
-    ]);
-
-    const rowCluesWrapper = createElement("div", [
-      "nonogram__clues",
-      "nonogram__clues--row",
-    ]);
-
-    this.addEmptyCorner(emptyCorner);
-    this.addClues(
-      colCluesWrapper,
-      this.clues.colClues,
-      this.maxLengthCol,
-      "clues__col"
+    this.container.style.setProperty(
+      "--cells-number",
+      this.gridSize + this.maxLengthRow
     );
-    this.addClues(
-      rowCluesWrapper,
-      this.clues.rowClues,
-      this.maxLengthRow,
-      "clues__row",
-      true
-    );
-    this.addCells(nonogramGrid);
 
-    this.nonogramGrid = nonogramGrid;
-
-    nonogramTop.append(emptyCorner, colCluesWrapper);
-    nonogramBottom.append(rowCluesWrapper, nonogramGrid);
-    this.container.append(nonogramTop, nonogramBottom);
-  }
-
-  addEmptyCorner(emptyCorner) {
-    for (let index = 0; index < this.maxLengthRow; index++) {
-      const emptyCellsCol = createElement("div", ["empty-corner__col"]);
-      for (let j = 0; j < this.maxLengthCol; j++) {
-        emptyCellsCol.appendChild(createElement("div", ["empty-cell"]));
+    // First round (see picture gridBuildingLogic.png)
+    for (let i = 0; i < this.maxLengthCol; i++) {
+      for (let j = 0; j < this.maxLengthRow; j++) {
+        // Add empty cells
+        this.container.appendChild(createElement("div", ["empty-cell"]));
       }
-      emptyCorner.appendChild(emptyCellsCol);
+
+      for (let k = 0; k < this.gridSize; k++) {
+        // Add col clue cells
+        const clue = this.clues.colClues[k];
+        this.container.appendChild(this.createClueCell(clue[i], false, i, k));
+      }
+    }
+
+    // Second round (see picture gridBuildingLogic.png)
+    for (let i = 0; i < this.gridSize; i++) {
+      for (let k = 0; k < this.maxLengthRow; k++) {
+        const clue = this.clues.rowClues[i];
+        // Add row clue cells
+        this.container.appendChild(this.createClueCell(clue[k], true, i, k));
+      }
+
+      for (let j = 0; j < this.gridSize; j++) {
+        // Add cells
+        this.container.appendChild(this.createGridCell(i, j));
+      }
     }
   }
 
-  addClues(wrapper, clues, maxLength, clueClass, isRow = false) {
-    clues.forEach((clue) => {
-      const clueElement = createElement("div", [
-        clueClass,
-        ...(isRow ? ["flex-container"] : []),
-      ]);
-      this.addEmptyClueCells(clueElement, maxLength - clue.length);
-      clue.forEach((number) => {
-        const numberCell = createElement("div", ["clue"], number);
-        clueElement.appendChild(numberCell);
-      });
-      wrapper.appendChild(clueElement);
+  createClueCell = (number, isRowClue, rowIndex, colIndex) => {
+    const isRightBorder =
+      !isRowClue &&
+      ((this.gridSize === 15 && (colIndex === 4 || colIndex === 9)) ||
+        (this.gridSize === 10 && colIndex === 4));
+    const isLeftBorder = !isRowClue && colIndex == 0;
+    const isBottomBorder =
+      (isRowClue &&
+        this.gridSize === 15 &&
+        (rowIndex === 4 || rowIndex === 9)) ||
+      (isRowClue && this.gridSize === 10 && rowIndex === 4);
+    const isTopBorder = isRowClue && rowIndex == 0;
+
+    const classes = ["clue"];
+    if (isRightBorder) classes.push("right-border");
+    if (isTopBorder) classes.push("top-border");
+    if (isBottomBorder) classes.push("bottom-border");
+    if (isLeftBorder) classes.push("left-border");
+
+    const clueCell = createElement("div", classes);
+    clueCell.textContent = number === 0 ? "" : number;
+
+    return clueCell;
+  };
+
+  createGridCell = (rowIndex, colIndex) => {
+    const isRightBorder =
+      (this.gridSize === 15 && (colIndex === 4 || colIndex === 9)) ||
+      (this.gridSize === 10 && colIndex === 4);
+    const isBottomBorder =
+      (this.gridSize === 15 && (rowIndex === 4 || rowIndex === 9)) ||
+      (this.gridSize === 10 && rowIndex === 4);
+    const isTopBorder = rowIndex == 0;
+    const isLeftBorder = colIndex == 0;
+
+    const classes = ["cell"];
+    if (isRightBorder) classes.push("right-border");
+    if (isBottomBorder) classes.push("bottom-border");
+    if (isTopBorder) classes.push("top-border");
+    if (isLeftBorder) classes.push("left-border");
+
+    const cell = createElement("div", classes);
+    cell.dataset.row = rowIndex;
+    cell.dataset.col = colIndex;
+
+    cell.addEventListener("click", () => this.toggleClass(cell, "filled"));
+    cell.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      this.toggleClass(cell, "crossed");
     });
-  }
 
-  addEmptyClueCells(element, count) {
-    for (let i = 0; i < count; i++) {
-      element.appendChild(createElement("div", ["clue"]));
-    }
-  }
-
-  addCells(nonogramGrid) {
-    this.gridData.forEach((gridRow, gridRowIndex) => {
-      console.log(gridRow);
-      gridRow.forEach((_, gridColIndex) => {
-        const cell = createElement("div", ["cell"]);
-        cell.dataset.row = gridRowIndex;
-        cell.dataset.col = gridColIndex;
-        cell.addEventListener("click", () => this.toggleClass(cell, "filled"));
-        cell.addEventListener("contextmenu", (e) => {
-          e.preventDefault();
-          this.toggleClass(cell, "crossed");
-        });
-
-        nonogramGrid.appendChild(cell);
-      });
-    });
-  }
+    return cell;
+  };
 
   toggleClass(element, className) {
     element.classList.toggle(className);
   }
 
   resetGrid() {
-    this.nonogramGrid.querySelectorAll(".cell").forEach((cell) => {
+    this.container.querySelectorAll(".cell").forEach((cell) => {
       cell.classList.remove("filled", "crossed");
     });
   }
