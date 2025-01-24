@@ -3,10 +3,10 @@ import { createElement } from "../models/utils";
 export const buildGameScreen = (pictures, levels) => {
   //Main dom elements
   const body = document.querySelector("body");
-  body.classList.add("app");
+  body.classList.add("app", "light-mode");
   const bodyWrapper = createElement("div", ["app__wrapper"]);
   const appHeader = createElement("h1", ["header"], "Nonograms");
-  const gameContainer = createElement("div", ["game", "flex-container"]);
+  const gameContainer = createElement("div", ["game"]);
   const centralContainer = createElement("div", ["game__main"]);
   const rightContainer = createElement("div", ["game__buttons"]);
   const leftContainer = createElement("div", ["game__levels"]);
@@ -25,7 +25,7 @@ export const buildGameScreen = (pictures, levels) => {
   leftContainer.appendChild(levelsHeader);
   levels.forEach((level) => {
     const levelContainer = createElement(
-      "button",
+      "div",
       ["level"],
       `${level.name}(${level.format})`
     );
