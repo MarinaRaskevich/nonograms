@@ -1,1 +1,4 @@
-$cell-size: 30px;
+$content-width: 1440px;
+$cell-size-l: calc(min(75vh, 50vw) / var(--cells-number));
+$cell-size-s: calc(min(80vh, 90vw) / var(--cells-number));
+$break-point: 768px;

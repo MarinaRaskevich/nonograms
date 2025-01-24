@@ -1,17 +1,28 @@
 @use "../abstracts/index" as *;
 
-.empty-cell {
-  width: $cell-size;
-  height: $cell-size;
+.nonogram {
+  @include grid($cell-size-l);
+  @include media-small-device {
+    @include grid($cell-size-s);
+  }
 }
 
-.cell {
-  @extend %cell-border;
-}
-
+.cell,
+.empty-cell,
 .clue {
-  width: $cell-size;
-  height: $cell-size;
-  text-align: center;
-  @extend %cell-border;
+  aspect-ratio: 1 / 1;
+  @include flex($justify: center, $align: center);
+  font-weight: bold;
+}
+
+.right-border {
+  border-right: 1px solid black;
+}
+
+.top-border {
+  border-top: 1px solid black;
+}
+
+.left-border {
+  border-left: 1px solid black;
 }

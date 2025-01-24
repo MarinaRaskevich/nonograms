@@ -1,0 +1,15 @@
+@use "../abstracts/index" as *;
+
+.game {
+  margin-top: 15px;
+  width: 100%;
+  @include flex;
+  @include media-small-device {
+    @include flex($direction: column);
+  }
+}
+
+.game__levels,
+.game__buttons {
+  width: 25%;
+}

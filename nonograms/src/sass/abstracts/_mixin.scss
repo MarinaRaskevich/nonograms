@@ -1,5 +1,52 @@
-@mixin grid($cells-number, $cell-size) {
+@use "./constants" as const;
+
+@mixin font(
+  $size,
+  $height: $size,
+  $weight: 600,
+  $style: normal,
+  $transform: uppercase,
+  $spacing: 0
+) {
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
+  text-transform: $transform;
+  letter-spacing: $spacing;
+}
+
+@mixin grid($cell-size) {
   display: grid;
-  grid-template-columns: repeat($cells-number, $cell-size);
-  grid-template-rows: repeat($cells-number, $cell-size);
+  grid-template-columns: repeat(var(--cells-number), $cell-size);
+}
+
+@mixin flex(
+  $direction: row,
+  $justify: flex-start,
+  $align: stretch,
+  $wrap: nowrap,
+  $gap: null
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+
+  @if $gap != null {
+    gap: $gap;
+  }
+}
+
+@mixin media-big-device {
+  @media (max-width: const.$content-width) {
+    @content;
+  }
+}
+
+@mixin media-small-device {
+  @media (max-width: const.$break-point) {
+    @content;
+  }
 }

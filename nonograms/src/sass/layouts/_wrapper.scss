@@ -1,0 +1,8 @@
+@use "../abstracts/index" as *;
+
+.app__wrapper {
+  padding: 2.4rem 2rem;
+  max-width: $content-width;
+  margin: auto;
+  text-align: center;
+}

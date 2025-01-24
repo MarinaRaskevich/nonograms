@@ -1,3 +1,58 @@
-.flex-container {
-  display: flex;
+@use "../base/typography";
+@use "../abstracts/index" as *;
+
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+.app {
+  @extend %font-primary;
+  @include font($size: 1.6rem, $weight: normal, $transform: none);
+  min-height: 100vh;
+  margin: auto;
+}
+
+.light-mode {
+  color: black;
+  background-color: white;
+  .cell,
+  .clue {
+    @extend %cell-border;
+  }
+  .right-border {
+    border-right: 1px solid rgb(0, 0, 0);
+  }
+
+  .bottom-border {
+    border-bottom: 1px solid black;
+  }
+}
+
+.dark-mode {
+  color: white;
+  background-color: rgb(20, 20, 20);
+  .cell,
+  .clue {
+    @extend %cell-border-light;
+  }
+  .right-border {
+    border-right: 1px solid rgb(255, 254, 254);
+  }
+
+  .bottom-border {
+    border-bottom: 1px solid rgb(255, 254, 254);
+  }
+}
+
+h1 {
+  @include font($size: 3.2rem, $height: 4.8rem, $spacing: 0.576rem);
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  @include font($size: 2.4rem, $height: 3.648rem, $spacing: 0.384rem);
 }
