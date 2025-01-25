@@ -1,4 +1,5 @@
 import { createElement } from "../models/utils";
+import { modeSwitcher } from "../models/modeSwitcher.js";
 
 export const buildGameScreen = (pictures, levels) => {
   //Main dom elements
@@ -12,6 +13,26 @@ export const buildGameScreen = (pictures, levels) => {
   const leftContainer = createElement("div", ["game__levels"]);
 
   //Left container elements (levels and random game button)
+  const modeSwitcherDiv = createElement("div", ["game__mode"]);
+  const modeSwitcherHeader = createElement(
+    "div",
+    ["mode__header"],
+    "Light/Dark mode"
+  );
+  const modeSwitcherInput = createElement("input", ["mode__input"]);
+  modeSwitcherInput.setAttribute("type", "checkbox");
+  modeSwitcherInput.id = "switcher";
+  modeSwitcherInput.name = "mode";
+  modeSwitcherInput.addEventListener("change", modeSwitcher);
+  const modeSwitcherLabel = createElement("label", ["mode__label"], "Toggle");
+  modeSwitcherLabel.setAttribute("for", "switcher");
+  modeSwitcherDiv.append(
+    modeSwitcherHeader,
+    modeSwitcherInput,
+    modeSwitcherLabel
+  );
+  leftContainer.appendChild(modeSwitcherDiv);
+
   const levelsHeader = createElement(
     "h2",
     ["levels__header"],
@@ -45,14 +66,19 @@ export const buildGameScreen = (pictures, levels) => {
   leftContainer.appendChild(randomGameButton);
 
   //Right container (action buttons in game state and table of past games)
+  const scoreTableHeader = createElement(
+    "h2",
+    ["levels__header"],
+    "High score table"
+  );
   const solvedPicturesTable = createElement("table");
-  const solvedPicturesTableHead = createElement("thead");
-  const solvedPicturesTableHeadTr = createElement("tr");
-  const solvedPicturesTableHeadTh = createElement("th", [], "high score table");
-  solvedPicturesTableHeadTh.setAttribute("scope", "row");
-  solvedPicturesTableHeadTh.setAttribute("colspan", 4);
-  solvedPicturesTableHeadTr.appendChild(solvedPicturesTableHeadTh);
-  solvedPicturesTableHead.appendChild(solvedPicturesTableHeadTr);
+  //   const solvedPicturesTableHead = createElement("thead");
+  //   const solvedPicturesTableHeadTr = createElement("tr");
+  //   const solvedPicturesTableHeadTh = createElement("th", [], "high score table");
+  //   solvedPicturesTableHeadTh.setAttribute("scope", "row");
+  //   solvedPicturesTableHeadTh.setAttribute("colspan", 4);
+  //   solvedPicturesTableHeadTr.appendChild(solvedPicturesTableHeadTh);
+  //   solvedPicturesTableHead.appendChild(solvedPicturesTableHeadTr);
   const solvedPicturesTableBody = createElement("tbody");
 
   for (let row = 1; row <= 5; row++) {
@@ -65,7 +91,7 @@ export const buildGameScreen = (pictures, levels) => {
     solvedPicturesTableBody.appendChild(tr);
   }
 
-  solvedPicturesTable.append(solvedPicturesTableHead, solvedPicturesTableBody);
+  solvedPicturesTable.append(solvedPicturesTableBody);
 
   const continueLastGameButton = createElement(
     "button",
@@ -88,7 +114,11 @@ export const buildGameScreen = (pictures, levels) => {
     ["btn", "btn--solution"],
     "Show solution"
   );
-  rightContainer.append(solvedPicturesTable, continueLastGameButton);
+  rightContainer.append(
+    scoreTableHeader,
+    solvedPicturesTable,
+    continueLastGameButton
+  );
   //rightContainer.append(resetGameButton, saveGameButton, solutionButton);
 
   //Central container (nonograms names or game)

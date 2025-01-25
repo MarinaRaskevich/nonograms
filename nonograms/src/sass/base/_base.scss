@@ -11,6 +11,7 @@ html {
   @include font($size: 1.6rem, $weight: normal, $transform: none);
   min-height: 100vh;
   margin: auto;
+  display: flex;
 }
 
 .light-mode {
@@ -21,11 +22,23 @@ html {
     @extend %cell-border;
   }
   .right-border {
-    border-right: 1px solid rgb(0, 0, 0);
+    border-right: 1.5px solid black;
+  }
+
+  .top-border {
+    border-top: 1.5px solid black;
+  }
+
+  .left-border {
+    border-left: 1.5px solid black;
   }
 
   .bottom-border {
-    border-bottom: 1px solid black;
+    border-bottom: 1.5px solid black;
+  }
+
+  .filled {
+    background-color: black;
   }
 }
 
@@ -37,16 +50,29 @@ html {
     @extend %cell-border-light;
   }
   .right-border {
-    border-right: 1px solid rgb(255, 254, 254);
+    border-right: 1.5px solid rgb(170, 169, 169);
+  }
+
+  .top-border {
+    border-top: 1.5px solid rgb(170, 169, 169);
+  }
+
+  .left-border {
+    border-left: 1.5px solid rgb(170, 169, 169);
   }
 
   .bottom-border {
-    border-bottom: 1px solid rgb(255, 254, 254);
+    border-bottom: 1.5px solid rgb(170, 169, 169);
+  }
+
+  .filled {
+    background-color: white;
   }
 }
 
 h1 {
   @include font($size: 3.2rem, $height: 4.8rem, $spacing: 0.576rem);
+  color: rgb(255, 215, 0);
 }
 
 h1 {
@@ -54,5 +80,6 @@ h1 {
 }
 
 h2 {
-  @include font($size: 2.4rem, $height: 3.648rem, $spacing: 0.384rem);
+  @include font($size: 2rem, $height: 3.648rem, $spacing: 0.384rem);
+  color: rgb(255, 215, 0);
 }
