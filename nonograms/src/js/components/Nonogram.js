@@ -108,12 +108,13 @@ export class Nonogram {
     cell.dataset.row = rowIndex;
     cell.dataset.col = colIndex;
 
-    cell.addEventListener("click", () => this.toggleClass(cell, "filled"));
-    cell.addEventListener("contextmenu", (e) => {
-      e.preventDefault();
-      this.toggleClass(cell, "crossed");
-    });
-
+    if (!this.isDemo) {
+      cell.addEventListener("click", () => this.toggleClass(cell, "filled"));
+      cell.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        this.toggleClass(cell, "crossed");
+      });
+    }
     return cell;
   };
 

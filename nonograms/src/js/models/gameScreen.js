@@ -2,7 +2,7 @@ import { createElement } from "./utils";
 import { modeSwitcher } from "./modeSwitcher.js";
 import { showLevelPictures } from "./levelPictures.js";
 
-export const buildGameScreen = (pictures, levels) => {
+export const buildGameScreen = (levels) => {
   //Main dom elements
   const body = document.querySelector("body");
   body.classList.add("app", "light-mode");
@@ -109,7 +109,9 @@ export const buildGameScreen = (pictures, levels) => {
 
   //Central container (nonograms names or game)
   const nonogram = createElement("div", ["nonogram"]);
-  centralContainer.append(nonogram);
+  const pictureHeader = createElement("h3", ["main__header"]);
+  pictureHeader.classList.add("hidden");
+  centralContainer.append(pictureHeader, nonogram);
   gameContainer.append(leftContainer, centralContainer, rightContainer);
   bodyWrapper.append(appHeader, gameContainer);
   body.append(bodyWrapper);
