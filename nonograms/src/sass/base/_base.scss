@@ -50,23 +50,34 @@ html {
     @extend %cell-border-light;
   }
   .right-border {
-    border-right: 1.5px solid rgb(170, 169, 169);
+    border-right: 2px solid rgb(255, 255, 255);
   }
 
   .top-border {
-    border-top: 1.5px solid rgb(170, 169, 169);
+    border-top: 2px solid rgb(255, 255, 255);
   }
 
   .left-border {
-    border-left: 1.5px solid rgb(170, 169, 169);
+    border-left: 2px solid rgb(255, 255, 255);
   }
 
   .bottom-border {
-    border-bottom: 1.5px solid rgb(170, 169, 169);
+    border-bottom: 2px solid rgb(255, 255, 255);
   }
 
   .filled {
     background-color: white;
+  }
+
+  .btn {
+    box-shadow: rgba(179, 179, 179, 0.2) 15px 28px 25px -18px;
+    background-color: rgb(20, 20, 20);
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+
+  .picture-name {
+    color: white;
   }
 }
 

@@ -1,5 +1,6 @@
-import { createElement } from "../models/utils";
-import { modeSwitcher } from "../models/modeSwitcher.js";
+import { createElement } from "./utils";
+import { modeSwitcher } from "./modeSwitcher.js";
+import { showLevelPictures } from "./levelPictures.js";
 
 export const buildGameScreen = (pictures, levels) => {
   //Main dom elements
@@ -51,15 +52,7 @@ export const buildGameScreen = (pictures, levels) => {
       `${level.name}(${level.format})`
     );
     levelContainer.setAttribute("data-level", level.name);
-
-    pictures.forEach((picture) => {
-      if (picture.difficulty == level) {
-        const pictureButton = createElement("div", ["picture-name"]);
-        pictureButton.textContent = picture.name;
-        pictureButton.setAttribute("data-id", picture.id);
-        levelPictures.append(pictureButton);
-      }
-    });
+    levelContainer.addEventListener("click", showLevelPictures);
 
     leftContainer.appendChild(levelContainer);
   });
@@ -72,13 +65,6 @@ export const buildGameScreen = (pictures, levels) => {
     "High score table"
   );
   const solvedPicturesTable = createElement("table");
-  //   const solvedPicturesTableHead = createElement("thead");
-  //   const solvedPicturesTableHeadTr = createElement("tr");
-  //   const solvedPicturesTableHeadTh = createElement("th", [], "high score table");
-  //   solvedPicturesTableHeadTh.setAttribute("scope", "row");
-  //   solvedPicturesTableHeadTh.setAttribute("colspan", 4);
-  //   solvedPicturesTableHeadTr.appendChild(solvedPicturesTableHeadTh);
-  //   solvedPicturesTableHead.appendChild(solvedPicturesTableHeadTr);
   const solvedPicturesTableBody = createElement("tbody");
 
   for (let row = 1; row <= 5; row++) {
