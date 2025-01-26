@@ -5,4 +5,6 @@
   max-width: $content-width;
   margin: auto;
   text-align: center;
+  min-height: 100vh;
+  @include flex($direction: column);
 }

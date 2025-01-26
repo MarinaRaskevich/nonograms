@@ -109,9 +109,10 @@ export const buildGameScreen = (levels) => {
 
   //Central container (nonograms names or game)
   const nonogram = createElement("div", ["nonogram"]);
+  const timer = createElement("div", ["timer"], "00:00");
   const pictureHeader = createElement("h3", ["main__header"]);
   pictureHeader.classList.add("hidden");
-  centralContainer.append(pictureHeader, nonogram);
+  centralContainer.append(timer, pictureHeader, nonogram);
   gameContainer.append(leftContainer, centralContainer, rightContainer);
   bodyWrapper.append(appHeader, gameContainer);
   body.append(bodyWrapper);

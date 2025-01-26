@@ -1,4 +1,5 @@
 import { createElement } from "../models/utils";
+import { startTimer } from "../models/timer";
 
 export class Nonogram {
   constructor(
@@ -16,6 +17,7 @@ export class Nonogram {
     this.gridSize = gridSize;
     this.maxLengthCol = null;
     this.maxLengthRow = null;
+    this.isFirstClick = true;
   }
 
   renderGrid() {
@@ -109,9 +111,25 @@ export class Nonogram {
     cell.dataset.col = colIndex;
 
     if (!this.isDemo) {
-      cell.addEventListener("click", () => this.toggleClass(cell, "filled"));
+      cell.addEventListener("click", () => {
+        if (this.isFirstClick) {
+          startTimer();
+          this.isFirstClick = false;
+        }
+        this.toggleClass(cell, "filled");
+      });
+
       cell.addEventListener("contextmenu", (e) => {
         e.preventDefault();
+        if (this.isFirstClick) {
+          startTimer();
+          this.isFirstClick = false;
+        }
+
+        cell.textContent = "";
+        const span1 = createElement("span", ["line"]);
+        const span2 = createElement("span", ["line"]);
+        cell.append(span1, span2);
         this.toggleClass(cell, "crossed");
       });
     }
