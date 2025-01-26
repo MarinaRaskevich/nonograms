@@ -10,10 +10,13 @@
   }
 }
 
-.game__levels,
+.game__left,
 .game__buttons {
   width: 25%;
   @include flex($direction: column, $justify: center, $align: center);
+  @include media-small-device {
+    width: 100%;
+  }
 }
 
 .game__main {
@@ -22,16 +25,18 @@
   @include flex($direction: column, $justify: center, $align: center);
 }
 
-.timer {
-  position: absolute;
-  top: 0;
+.levels,
+.left__buttons {
+  @include media-small-device {
+    @include flex($justify: center, $align: center, $gap: 10px);
+  }
 }
 
 .main__header {
   margin-top: 0;
 }
 
-.game__levels {
+.game__left {
   position: relative;
 }
 
@@ -41,15 +46,18 @@
 
 .level {
   cursor: pointer;
-  @include font($size: 2rem, $height: 3.648rem, $spacing: 0.384rem);
 }
 
 .level:hover {
-  @include font($size: 3rem);
+  @include font($size: 2.5rem);
   text-decoration: underline;
 }
 
-.game__mode {
+.game__mode,
+.timer {
   position: absolute;
   top: 0;
+  @include media-small-device {
+    position: relative;
+  }
 }

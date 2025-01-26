@@ -37,7 +37,8 @@ html {
     border-bottom: 1.5px solid black;
   }
 
-  .filled {
+  .filled,
+  .line {
     background-color: black;
   }
 }
@@ -65,7 +66,8 @@ html {
     border-bottom: 2px solid rgb(255, 255, 255);
   }
 
-  .filled {
+  .filled,
+  .line {
     background-color: white;
   }
 
@@ -75,22 +77,36 @@ html {
     border-color: #ffffff;
     color: #ffffff;
   }
+  .btn--game-action {
+    background-color: rgba(255, 217, 0, 0.236);
+  }
 
   .picture-name {
     color: white;
   }
 }
 
+h1,
+h2 {
+  margin: 0;
+}
+
 h1 {
   @include font($size: 3.2rem, $height: 4.8rem, $spacing: 0.576rem);
   color: rgb(255, 215, 0);
-  margin: 0;
 }
 
 .level,
 h2,
 .picture-name {
   @include font($size: 2rem, $height: 3.648rem, $spacing: 0.384rem);
+  @include media-small-device {
+    @include font($size: 1.5rem, $height: 3.648rem, $spacing: 0.1rem);
+  }
+}
+
+.btn {
+  @include font($size: 1.5rem, $height: 1rem, $spacing: 0.2rem);
 }
 
 .timer,

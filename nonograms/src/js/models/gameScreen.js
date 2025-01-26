@@ -1,4 +1,5 @@
 import { createElement } from "./utils";
+import { resetTimer } from "./timer";
 import { modeSwitcher } from "./modeSwitcher.js";
 import { showLevelPictures } from "./levelPictures.js";
 
@@ -11,9 +12,11 @@ export const buildGameScreen = (levels) => {
   const gameContainer = createElement("div", ["game"]);
   const centralContainer = createElement("div", ["game__main"]);
   const rightContainer = createElement("div", ["game__buttons"]);
-  const leftContainer = createElement("div", ["game__levels"]);
+  const leftContainer = createElement("div", ["game__left"]);
 
-  //Left container elements (levels and random game button)
+  //Left container elements
+
+  //Mode switcher
   const modeSwitcherDiv = createElement("div", ["game__mode"]);
   const modeSwitcherHeader = createElement(
     "div",
@@ -32,19 +35,15 @@ export const buildGameScreen = (levels) => {
     modeSwitcherInput,
     modeSwitcherLabel
   );
-  leftContainer.appendChild(modeSwitcherDiv);
 
+  //Levels
   const levelsHeader = createElement(
     "h2",
     ["levels__header"],
     "Select level and picture"
   );
-  const randomGameButton = createElement(
-    "button",
-    ["btn", "btn--random"],
-    "Random game"
-  );
-  leftContainer.appendChild(levelsHeader);
+
+  const levelsContainer = createElement("div", ["levels"]);
   levels.forEach((level) => {
     const levelContainer = createElement(
       "div",
@@ -54,16 +53,90 @@ export const buildGameScreen = (levels) => {
     levelContainer.setAttribute("data-level", level.name);
     levelContainer.addEventListener("click", showLevelPictures);
 
-    leftContainer.appendChild(levelContainer);
+    levelsContainer.appendChild(levelContainer);
   });
-  leftContainer.appendChild(randomGameButton);
+
+  //Buttons
+  const buttonsContainer = createElement("div", ["left__buttons"]);
+  const continueLastGameButton = createElement(
+    "button",
+    ["btn", "btn--continue"],
+    "Continue last game"
+  );
+
+  const randomGameButton = createElement(
+    "button",
+    ["btn", "btn--random"],
+    "Random game"
+  );
+
+  buttonsContainer.append(randomGameButton, continueLastGameButton);
+
+  leftContainer.append(
+    modeSwitcherDiv,
+    levelsHeader,
+    levelsContainer,
+    buttonsContainer
+  );
 
   //Right container (action buttons in game state and table of past games)
-  const scoreTableHeader = createElement(
-    "h2",
-    ["levels__header"],
-    "High score table"
+  const resetGameButton = createElement(
+    "button",
+    ["btn", "btn--reset", "btn--game-action"],
+    "Reset game"
   );
+  const saveGameButton = createElement(
+    "button",
+    ["btn", "btn--save", "btn--game-action"],
+    "Save game"
+  );
+
+  const solutionButton = createElement(
+    "button",
+    ["btn", "btn--solution", "btn--game-action"],
+    "Show solution"
+  );
+
+  const scoreTableButton = createElement(
+    "button",
+    ["btn", "btn--table"],
+    "Show score table"
+  );
+  scoreTableButton.addEventListener("click", showScoreTable);
+
+  rightContainer.append(
+    scoreTableButton,
+    resetGameButton,
+    saveGameButton,
+    solutionButton
+  );
+
+  //Central container (nonograms names or game)
+  const nonogram = createElement("div", ["nonogram"]);
+  const timer = createElement("div", ["timer"], "00:00");
+  const pictureHeader = createElement("h3", ["main__header"]);
+  pictureHeader.classList.add("hidden");
+  centralContainer.append(timer, pictureHeader, nonogram);
+  gameContainer.append(leftContainer, centralContainer, rightContainer);
+  bodyWrapper.append(appHeader, gameContainer);
+  body.append(bodyWrapper);
+};
+
+const showScoreTable = () => {
+  resetTimer();
+  const nonogram = document.querySelector(".nonogram");
+  const pictureHeader = document.querySelector(".main__header");
+  const timer = document.querySelector(".timer");
+  timer.classList.add("hidden");
+  pictureHeader.textContent = "";
+  nonogram.textContent = "";
+  nonogram.style.setProperty("--cells-number", 1);
+  const gameActionButtons = document.querySelectorAll(".btn--game-action");
+  gameActionButtons.forEach((button) => {
+    button.disabled = true;
+  });
+
+  pictureHeader.textContent = "High score table";
   const solvedPicturesTable = createElement("table");
   const solvedPicturesTableBody = createElement("tbody");
 
@@ -78,42 +151,5 @@ export const buildGameScreen = (levels) => {
   }
 
   solvedPicturesTable.append(solvedPicturesTableBody);
-
-  const continueLastGameButton = createElement(
-    "button",
-    ["btn", "btn--continue"],
-    "Continue last game"
-  );
-
-  const resetGameButton = createElement(
-    "button",
-    ["btn", "btn--reset"],
-    "Reset game"
-  );
-  const saveGameButton = createElement(
-    "button",
-    ["btn", "btn--save"],
-    "Save game"
-  );
-  const solutionButton = createElement(
-    "button",
-    ["btn", "btn--solution"],
-    "Show solution"
-  );
-  rightContainer.append(
-    scoreTableHeader,
-    solvedPicturesTable,
-    continueLastGameButton
-  );
-  //rightContainer.append(resetGameButton, saveGameButton, solutionButton);
-
-  //Central container (nonograms names or game)
-  const nonogram = createElement("div", ["nonogram"]);
-  const timer = createElement("div", ["timer"], "00:00");
-  const pictureHeader = createElement("h3", ["main__header"]);
-  pictureHeader.classList.add("hidden");
-  centralContainer.append(timer, pictureHeader, nonogram);
-  gameContainer.append(leftContainer, centralContainer, rightContainer);
-  bodyWrapper.append(appHeader, gameContainer);
-  body.append(bodyWrapper);
+  nonogram.append(solvedPicturesTable);
 };
