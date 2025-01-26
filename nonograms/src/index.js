@@ -6,9 +6,10 @@ import levels from "./json/levels.json";
 
 window.onload = function () {
   buildGameScreen(levels);
-  const container = document.querySelector(".nonogram");
-  const selectedTemplate = pictures[0];
 
-  const gameGrid = new Nonogram(container, true, selectedTemplate);
-  gameGrid.renderGrid();
+  const easyImages = pictures.filter(
+    (picture) => picture.difficulty === "easy"
+  );
+  const selectedTemplate = easyImages[0];
+  buildGrid(selectedTemplate);
 };
