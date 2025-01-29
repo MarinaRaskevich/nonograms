@@ -3,6 +3,8 @@ import { resetTimer } from "./timer";
 import { modeSwitcher } from "./modeSwitcher.js";
 import { showLevelPictures } from "./levelPictures.js";
 import { randomGame } from "./randomGame.js";
+import { loadGame } from "./storage.js";
+import { checkLocalStorage } from "./storage.js";
 
 export const buildGameScreen = (levels) => {
   //Main dom elements
@@ -64,6 +66,8 @@ export const buildGameScreen = (levels) => {
     ["btn", "btn--continue"],
     "Continue last game"
   );
+  continueLastGameButton.addEventListener("click", loadGame);
+  continueLastGameButton.disabled = !checkLocalStorage();
 
   const randomGameButton = createElement(
     "button",
@@ -115,7 +119,7 @@ export const buildGameScreen = (levels) => {
 
   //Central container (nonograms names or game)
   const nonogram = createElement("div", ["nonogram"]);
-  const timer = createElement("div", ["timer"], "00:00");
+  const timer = createElement("div", ["timer"]);
   const pictureHeader = createElement("h3", ["main__header"]);
   pictureHeader.classList.add("hidden");
   centralContainer.append(timer, pictureHeader, nonogram);
