@@ -2,6 +2,7 @@ import { createElement } from "./utils";
 import { resetTimer } from "./timer";
 import { modeSwitcher } from "./modeSwitcher.js";
 import { showLevelPictures } from "./levelPictures.js";
+import { randomGame } from "./randomGame.js";
 
 export const buildGameScreen = (levels) => {
   //Main dom elements
@@ -69,6 +70,7 @@ export const buildGameScreen = (levels) => {
     ["btn", "btn--random"],
     "Random game"
   );
+  randomGameButton.addEventListener("click", randomGame);
 
   buttonsContainer.append(randomGameButton, continueLastGameButton);
 

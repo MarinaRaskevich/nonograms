@@ -1,8 +1,8 @@
 [
   {
     "id": 0,
-    "name": "Demo",
-    "difficulty": "",
+    "name": "Question",
+    "difficulty": "medium",
     "gridSize": 10,
     "gridData": [
       [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
