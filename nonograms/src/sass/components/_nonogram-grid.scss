@@ -18,23 +18,6 @@
   position: relative;
 }
 
-.line {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 141.42%;
-  height: 2px;
-  background-color: black;
-}
-
-.line:first-child {
-  transform: translate(-50%, 0) rotate(45deg);
-}
-
-.line:last-child {
-  transform: translate(-50%, 0) rotate(-45deg);
-}
-
 .clue {
   background-color: rgba(255, 217, 0, 0.236);
   @include flex($justify: center, $align: center);
@@ -48,4 +31,29 @@
 
 .picture-name:hover {
   color: rgb(255, 215, 0);
+}
+
+.crossed::before,
+.crossed::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 141.42%;
+  height: 1px;
+  background-color: black;
+  transition: opacity 0.3s ease;
+}
+
+.crossed::before,
+.crossed::after {
+  opacity: 1;
+}
+
+.crossed::before {
+  transform: translate(-50%, 0) rotate(45deg);
+}
+
+.crossed::after {
+  transform: translate(-50%, 0) rotate(-45deg);
 }

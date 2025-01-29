@@ -31,7 +31,7 @@ export const buildGrid = (input) => {
   saveBtn.setAttribute("data-id", pictureId);
   saveBtn.addEventListener("click", saveGame);
 
-  const gameGrid = new Nonogram(nonogramGrid, false, selectedTemplate);
+  const gameGrid = new Nonogram(nonogramGrid, selectedTemplate);
   document.querySelector(".btn--solution").onclick = () =>
     gameGrid.showSolution();
   document.querySelector(".btn--reset").onclick = () => gameGrid.resetGrid();

@@ -4,7 +4,6 @@ import { startTimer, resetTimer, stopTimer } from "../models/timer";
 export class Nonogram {
   constructor(
     container,
-    isDemo,
     { id, difficulty, name, gridData, clues, gridSize = 5 }
   ) {
     this.container = container;
@@ -110,29 +109,26 @@ export class Nonogram {
     cell.dataset.row = rowIndex;
     cell.dataset.col = colIndex;
 
-    if (!this.isDemo) {
-      cell.addEventListener("click", () => {
-        if (this.isFirstClick) {
-          startTimer();
-          this.isFirstClick = false;
-        }
-        this.toggleClass(cell, "filled");
-      });
+    cell.addEventListener("click", () => {
+      if (this.isFirstClick) {
+        startTimer();
+        this.isFirstClick = false;
+      }
 
-      cell.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        if (this.isFirstClick) {
-          startTimer();
-          this.isFirstClick = false;
-        }
+      cell.classList.remove("crossed");
+      this.toggleClass(cell, "filled");
+    });
 
-        cell.textContent = "";
-        const span1 = createElement("span", ["line"]);
-        const span2 = createElement("span", ["line"]);
-        cell.append(span1, span2);
-        this.toggleClass(cell, "crossed");
-      });
-    }
+    cell.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      if (this.isFirstClick) {
+        startTimer();
+        this.isFirstClick = false;
+      }
+
+      this.toggleClass(cell, "crossed");
+    });
+
     return cell;
   };
 
