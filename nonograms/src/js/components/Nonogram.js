@@ -136,6 +136,20 @@ export class Nonogram {
     return cell;
   };
 
+  showSolution() {
+    this.container.querySelectorAll(".cell").forEach((cell) => {
+      const row = parseInt(cell.dataset.row, 10);
+      const col = parseInt(cell.dataset.col, 10);
+
+      if (this.gridData[row][col] === 1) {
+        cell.classList.add("filled");
+        cell.classList.remove("crossed");
+      } else {
+        cell.classList.remove("filled", "crossed");
+      }
+    });
+  }
+
   toggleClass(element, className) {
     element.classList.toggle(className);
   }
