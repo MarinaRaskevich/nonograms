@@ -1,9 +1,9 @@
 let timerInterval;
 let elapsedTime = 0;
 
-export function startTimer() {
+export function startTimer(savedTime = 0) {
   clearInterval(timerInterval);
-  elapsedTime = 0;
+  elapsedTime = savedTime;
   timerInterval = setInterval(() => {
     elapsedTime++;
     document.querySelector(".timer").textContent = formatTime(elapsedTime);
@@ -12,7 +12,20 @@ export function startTimer() {
 
 export function resetTimer() {
   clearInterval(timerInterval);
+  elapsedTime = 0;
   document.querySelector(".timer").textContent = "00:00";
+}
+
+export function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+export function getElapsedTime() {
+  return elapsedTime;
+}
+
+export function getTime() {
+  return formatTime(elapsedTime);
 }
 
 function formatTime(seconds) {

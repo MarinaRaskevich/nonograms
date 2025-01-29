@@ -1,5 +1,5 @@
 import { createElement } from "../models/utils";
-import { startTimer } from "../models/timer";
+import { startTimer, resetTimer, stopTimer } from "../models/timer";
 
 export class Nonogram {
   constructor(
@@ -137,6 +137,7 @@ export class Nonogram {
   };
 
   showSolution() {
+    stopTimer();
     this.container.querySelectorAll(".cell").forEach((cell) => {
       const row = parseInt(cell.dataset.row, 10);
       const col = parseInt(cell.dataset.col, 10);
@@ -155,6 +156,7 @@ export class Nonogram {
   }
 
   resetGrid() {
+    resetTimer();
     this.container.querySelectorAll(".cell").forEach((cell) => {
       cell.classList.remove("filled", "crossed");
     });
