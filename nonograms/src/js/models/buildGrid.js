@@ -26,5 +26,6 @@ export const buildGrid = (input) => {
   const gameGrid = new Nonogram(nonogramGrid, false, selectedTemplate);
   document.querySelector(".btn--solution").onclick = () =>
     gameGrid.showSolution();
+  document.querySelector(".btn--reset").onclick = () => gameGrid.resetGrid();
   gameGrid.renderGrid();
 };
