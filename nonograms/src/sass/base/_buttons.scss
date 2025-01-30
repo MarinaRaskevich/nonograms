@@ -12,6 +12,7 @@
   border-top-right-radius: 15px 225px;
   box-shadow: rgba(0, 0, 0, 0.2) 15px 28px 25px -18px;
   transition: all 235ms ease-in-out;
+  background-color: white;
 }
 
 .btn:hover {
@@ -25,7 +26,7 @@
 }
 
 .btn--game-action {
-  background-color: rgba(255, 217, 0, 0.236);
+  background-color: #fff7cf;
 }
 
 .btn:disabled:hover,

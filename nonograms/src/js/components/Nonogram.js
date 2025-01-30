@@ -7,7 +7,6 @@ export class Nonogram {
     { id, difficulty, name, gridData, clues, gridSize = 5 }
   ) {
     this.container = container;
-    this.isDemo = isDemo;
     this.id = id;
     this.difficulty = difficulty;
     this.name = name;

@@ -7,6 +7,15 @@ html {
 }
 
 .app {
+  background-image: url(../img/question.svg), url(../img/heart.svg),
+    url(../img/flower.svg), url(../img/star.svg), url(../img/lines.svg),
+    url(../img/cat.svg), url(../img/grid.svg);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, repeat;
+  background-size: 40px 40px, 50px 50px, 50px 50px, 40px 40px, 80px 80px,
+    80px 80px, contain;
+  background-position: 10% 5%, 15% 30%, 85% 10%, 20% 90%, 80% 40%, 90% 80%,
+    center;
   @extend %font-primary;
   @include font($size: 1.6rem, $weight: normal, $transform: none);
   min-height: 100vh;
@@ -22,19 +31,18 @@ html {
     @extend %cell-border;
   }
   .right-border {
-    border-right: 1.5px solid black;
+    border-right: 2px solid black;
   }
-
   .top-border {
-    border-top: 1.5px solid black;
+    border-top: 2px solid black;
   }
 
   .left-border {
-    border-left: 1.5px solid black;
+    border-left: 2px solid black;
   }
 
   .bottom-border {
-    border-bottom: 1.5px solid black;
+    border-bottom: 2px solid black;
   }
 
   .filled,
@@ -44,11 +52,21 @@ html {
 }
 
 .dark-mode {
+  background-image: url(../img/question.svg), url(../img/heart.svg),
+    url(../img/flower.svg), url(../img/star.svg), url(../img/lines.svg),
+    url(../img/cat.svg), none;
   color: white;
   background-color: rgb(20, 20, 20);
   .cell,
   .clue {
     @extend %cell-border-light;
+  }
+  .clue {
+    color: black;
+    background-color: #ffe23e;
+  }
+  .cell {
+    background-color: rgb(20, 20, 20);
   }
   .right-border {
     border-right: 2px solid rgb(255, 255, 255);
@@ -78,7 +96,8 @@ html {
     color: #ffffff;
   }
   .btn--game-action {
-    background-color: rgba(255, 217, 0, 0.236);
+    background-color: #ffe23e;
+    color: black;
   }
 
   .picture-name {

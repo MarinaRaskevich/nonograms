@@ -78,12 +78,7 @@ export const buildGameScreen = (levels) => {
 
   buttonsContainer.append(randomGameButton, continueLastGameButton);
 
-  leftContainer.append(
-    modeSwitcherDiv,
-    levelsHeader,
-    levelsContainer,
-    buttonsContainer
-  );
+  leftContainer.append(modeSwitcherDiv, levelsContainer, buttonsContainer);
 
   //Right container (action buttons in game state and table of past games)
   const resetGameButton = createElement(
