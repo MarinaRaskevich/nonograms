@@ -33,7 +33,35 @@ export const loadGame = () => {
   });
 };
 
-export const checkLocalStorage = () => {
-  const savedState = JSON.parse(localStorage.getItem("savedNonogram"));
-  return savedState;
+export const checkLocalStorage = (itemName) => {
+  return JSON.parse(localStorage.getItem(itemName));
+};
+
+export const saveWinRecord = (name, difficulty, time) => {
+  const newRecord = {
+    name: name,
+    difficulty: difficulty,
+    time: time,
+  };
+
+  let savedRecords = checkLocalStorage("nonogramRecords") || [];
+
+  const existingRecordIndex = savedRecords.findIndex(
+    (record) =>
+      record.name === newRecord.name &&
+      record.difficulty === newRecord.difficulty
+  );
+
+  if (existingRecordIndex !== -1) {
+    if (time < savedRecords[existingRecordIndex].time) {
+      savedRecords[existingRecordIndex].time = time;
+    }
+  } else {
+    savedRecords.push(newRecord);
+  }
+
+  savedRecords.sort((a, b) => a.time - b.time);
+  savedRecords = savedRecords.slice(0, 5);
+  console.log(savedRecords);
+  localStorage.setItem("nonogramRecords", JSON.stringify(savedRecords));
 };

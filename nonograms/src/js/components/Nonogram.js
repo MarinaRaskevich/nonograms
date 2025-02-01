@@ -1,5 +1,11 @@
 import { createElement } from "../models/utils";
-import { startTimer, resetTimer, stopTimer } from "../models/timer";
+import {
+  startTimer,
+  resetTimer,
+  stopTimer,
+  getElapsedTime,
+} from "../models/timer";
+import { saveWinRecord } from "../models/storage";
 
 export class Nonogram {
   constructor(
@@ -16,6 +22,10 @@ export class Nonogram {
     this.maxLengthCol = null;
     this.maxLengthRow = null;
     this.isFirstClick = true;
+
+    this.userGrid = Array.from({ length: gridSize }, () =>
+      Array(gridSize).fill(0)
+    );
   }
 
   renderGrid() {
@@ -116,6 +126,7 @@ export class Nonogram {
 
       cell.classList.remove("crossed");
       this.toggleClass(cell, "filled");
+      this.updateUserGrid(rowIndex, colIndex, 1);
     });
 
     cell.addEventListener("contextmenu", (e) => {
@@ -126,10 +137,27 @@ export class Nonogram {
       }
 
       this.toggleClass(cell, "crossed");
+      this.updateUserGrid(rowIndex, colIndex, 0);
     });
 
     return cell;
   };
+
+  updateUserGrid(row, col, value) {
+    this.userGrid[row][col] = value;
+    this.checkWin();
+  }
+
+  checkWin() {
+    const isWin = this.userGrid.every((row, i) =>
+      row.every((cell, j) => cell === this.gridData[i][j])
+    );
+
+    if (isWin) {
+      stopTimer();
+      saveWinRecord(this.name, this.difficulty, getElapsedTime());
+    }
+  }
 
   showSolution() {
     stopTimer();

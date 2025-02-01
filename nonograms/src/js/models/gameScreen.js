@@ -3,8 +3,8 @@ import { resetTimer } from "./timer";
 import { modeSwitcher } from "./modeSwitcher.js";
 import { showLevelPictures } from "./levelPictures.js";
 import { randomGame } from "./randomGame.js";
-import { loadGame } from "./storage.js";
-import { checkLocalStorage } from "./storage.js";
+import { loadGame, checkLocalStorage } from "./storage.js";
+import { showScoreTable } from "./recordsTable.js";
 
 export const buildGameScreen = (levels) => {
   //Main dom elements
@@ -67,7 +67,7 @@ export const buildGameScreen = (levels) => {
     "Continue last game"
   );
   continueLastGameButton.addEventListener("click", loadGame);
-  continueLastGameButton.disabled = !checkLocalStorage();
+  continueLastGameButton.disabled = !checkLocalStorage("savedNonogram");
 
   const randomGameButton = createElement(
     "button",
@@ -112,6 +112,20 @@ export const buildGameScreen = (levels) => {
     solutionButton
   );
 
+  // Copyright container
+  const copyrightDiv = createElement("div", ["copyright"]);
+  const githubLink = createElement(
+    "a",
+    ["gh__link"],
+    "Marina Efendieva-Raskevich"
+  );
+  githubLink.setAttribute("href", "https://github.com/MarinaRaskevich");
+  const copyright = createElement(
+    "div",
+    ["copyright__author-name"],
+    "© Copyright 2025, "
+  );
+  copyrightDiv.append(copyright, githubLink);
   //Central container (nonograms names or game)
   const nonogram = createElement("div", ["nonogram"]);
   const timer = createElement("div", ["timer"]);
@@ -119,38 +133,6 @@ export const buildGameScreen = (levels) => {
   pictureHeader.classList.add("hidden");
   centralContainer.append(timer, pictureHeader, nonogram);
   gameContainer.append(leftContainer, centralContainer, rightContainer);
-  bodyWrapper.append(appHeader, gameContainer);
+  bodyWrapper.append(appHeader, gameContainer, copyrightDiv);
   body.append(bodyWrapper);
-};
-
-const showScoreTable = () => {
-  resetTimer();
-  const nonogram = document.querySelector(".nonogram");
-  const pictureHeader = document.querySelector(".main__header");
-  const timer = document.querySelector(".timer");
-  timer.classList.add("hidden");
-  pictureHeader.textContent = "";
-  nonogram.textContent = "";
-  nonogram.style.setProperty("--cells-number", 1);
-  const gameActionButtons = document.querySelectorAll(".btn--game-action");
-  gameActionButtons.forEach((button) => {
-    button.disabled = true;
-  });
-
-  pictureHeader.textContent = "High score table";
-  const solvedPicturesTable = createElement("table");
-  const solvedPicturesTableBody = createElement("tbody");
-
-  for (let row = 1; row <= 5; row++) {
-    const tr = createElement("tr", []);
-    for (let col = 0; col < 4; col++) {
-      const td = createElement("td", [], "--");
-      if (col == 0) td.textContent = row;
-      tr.appendChild(td);
-    }
-    solvedPicturesTableBody.appendChild(tr);
-  }
-
-  solvedPicturesTable.append(solvedPicturesTableBody);
-  nonogram.append(solvedPicturesTable);
 };
