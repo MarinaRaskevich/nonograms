@@ -1,7 +1,7 @@
 @use "../abstracts/index" as *;
 
 .game {
-  margin-top: 15px;
+  margin-top: 5px;
   width: 100%;
   flex-grow: 1;
   @include flex($gap: 20px);
@@ -60,4 +60,12 @@
   @include media-small-device {
     position: relative;
   }
+}
+
+.copyright {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
