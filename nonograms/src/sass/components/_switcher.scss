@@ -52,7 +52,8 @@
 }
 
 .mode__input:checked + .mode__label {
-  background: rgb(255, 215, 0);
+  background: rgb(20, 20, 20);
+  border: 1px solid white;
 }
 
 .mode__input:checked + .mode__label span {
