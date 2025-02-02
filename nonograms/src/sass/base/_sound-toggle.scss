@@ -1,0 +1,15 @@
+.settings__sound {
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+}
+
+.icon--on {
+  background-image: url(../img/icons/sound-on.svg);
+  background-size: contain;
+}
+
+.icon--off {
+  background-image: url(../img/icons/sound-off.svg);
+  background-size: contain;
+}

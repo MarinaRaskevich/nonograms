@@ -7,6 +7,7 @@ import {
 } from "../models/timer";
 import { saveWinRecord } from "../models/storage";
 import { buildWinModal } from "../models/winModal";
+import { playSound } from "../models/sounds";
 
 export class Nonogram {
   constructor(
@@ -23,6 +24,7 @@ export class Nonogram {
     this.maxLengthCol = null;
     this.maxLengthRow = null;
     this.isFirstClick = true;
+    this.isGameOver = false;
 
     this.userGrid = Array.from({ length: gridSize }, () =>
       Array(gridSize).fill(0)
@@ -120,6 +122,7 @@ export class Nonogram {
     cell.dataset.col = colIndex;
 
     cell.addEventListener("click", () => {
+      if (this.isGameOver) return;
       if (this.isFirstClick) {
         startTimer();
         this.isFirstClick = false;
@@ -128,18 +131,25 @@ export class Nonogram {
       cell.classList.remove("crossed");
       this.toggleClass(cell, "filled");
       this.updateUserGrid(rowIndex, colIndex, 1);
+      cell.classList.contains("filled")
+        ? playSound("cellFill")
+        : playSound("cellClear");
     });
 
     cell.addEventListener("contextmenu", (e) => {
-      console.log(true);
       e.preventDefault();
+      if (this.isGameOver) return;
       if (this.isFirstClick) {
         startTimer();
         this.isFirstClick = false;
       }
 
+      cell.classList.remove("filled");
       this.toggleClass(cell, "crossed");
       this.updateUserGrid(rowIndex, colIndex, 0);
+      cell.classList.contains("crossed")
+        ? playSound("cellCross")
+        : playSound("cellClear");
     });
 
     return cell;
@@ -147,7 +157,6 @@ export class Nonogram {
 
   updateUserGrid(row, col, value) {
     this.userGrid[row][col] = this.userGrid[row][col] === value ? 0 : 1;
-    console.log(this.userGrid);
     this.checkWin();
   }
 
@@ -157,6 +166,8 @@ export class Nonogram {
     );
 
     if (isWin) {
+      this.isGameOver = true;
+      playSound("win");
       stopTimer();
       saveWinRecord(this.name, this.difficulty, getElapsedTime());
       buildWinModal(this.name, this.difficulty, getElapsedTime());
@@ -183,6 +194,7 @@ export class Nonogram {
   }
 
   resetGrid() {
+    this.isGameOver = false;
     resetTimer();
     this.container.querySelectorAll(".cell").forEach((cell) => {
       cell.classList.remove("filled", "crossed");
