@@ -6,7 +6,7 @@ const sounds = {
 };
 
 export const playSound = (event) => {
-  const isSoundEnabled = localStorage.getItem("soundMode") === "on";
+  const isSoundEnabled = checkSoundMode();
   if (!isSoundEnabled) return;
 
   if (sounds[event]) {
