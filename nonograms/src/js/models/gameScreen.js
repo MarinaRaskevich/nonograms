@@ -5,6 +5,7 @@ import { showLevelPictures } from "./levelPictures.js";
 import { randomGame } from "./randomGame.js";
 import { loadGame, checkLocalStorage } from "./storage.js";
 import { showScoreTable } from "./recordsTable.js";
+import { checkSoundMode, toggleSoundMode } from "./sounds.js";
 
 export const buildGameScreen = (levels) => {
   //Main dom elements
@@ -19,8 +20,11 @@ export const buildGameScreen = (levels) => {
 
   //Left container elements
 
+  //Game settings
+  const gameSettingsDiv = createElement("div", ["game__settings"]);
+
   //Mode switcher
-  const modeSwitcherDiv = createElement("div", ["game__mode"]);
+  const modeSwitcherDiv = createElement("div", ["settings__mode"]);
   const modeSwitcherHeader = createElement(
     "div",
     ["mode__header"],
@@ -31,21 +35,19 @@ export const buildGameScreen = (levels) => {
   modeSwitcherInput.id = "switcher";
   modeSwitcherInput.name = "mode";
   modeSwitcherInput.addEventListener("change", modeSwitcher);
-  const modeSwitcherLabel = createElement("label", ["mode__label"], "Toggle");
+  const modeSwitcherLabel = createElement("label", ["mode__label"]);
+  const spanLabel = createElement("span", []);
   modeSwitcherLabel.setAttribute("for", "switcher");
-  modeSwitcherDiv.append(
-    modeSwitcherHeader,
-    modeSwitcherInput,
-    modeSwitcherLabel
-  );
+  modeSwitcherLabel.appendChild(spanLabel);
+  modeSwitcherDiv.append(modeSwitcherInput, modeSwitcherLabel);
+
+  const soundMode = checkSoundMode() ? "icon--on" : "icon--off";
+  const soundSwitcherDiv = createElement("div", ["settings__sound", soundMode]);
+  soundSwitcherDiv.addEventListener("click", toggleSoundMode);
+
+  gameSettingsDiv.append(modeSwitcherDiv, soundSwitcherDiv);
 
   //Levels
-  const levelsHeader = createElement(
-    "h2",
-    ["levels__header"],
-    "Select level and picture"
-  );
-
   const levelsContainer = createElement("div", ["levels"]);
   levels.forEach((level) => {
     const levelContainer = createElement(
@@ -78,7 +80,7 @@ export const buildGameScreen = (levels) => {
 
   buttonsContainer.append(randomGameButton, continueLastGameButton);
 
-  leftContainer.append(modeSwitcherDiv, levelsContainer, buttonsContainer);
+  leftContainer.append(gameSettingsDiv, levelsContainer, buttonsContainer);
 
   //Right container (action buttons in game state and table of past games)
   const resetGameButton = createElement(
@@ -123,7 +125,7 @@ export const buildGameScreen = (levels) => {
   const copyright = createElement(
     "div",
     ["copyright__author-name"],
-    "© Copyright 2025, "
+    "© Copyright 2025"
   );
   copyrightDiv.append(copyright, githubLink);
   //Central container (nonograms names or game)

@@ -53,13 +53,21 @@
   text-decoration: underline;
 }
 
-.game__mode,
+.game__settings,
 .timer {
   position: absolute;
   top: 0;
   @include media-small-device {
     position: relative;
   }
+}
+
+.game__settings {
+  @include flex($justify: center, $align: center, $gap: 4px);
+}
+
+.settings__mode {
+  @include flex($justify: center, $align: center, $gap: 4px);
 }
 
 .copyright {

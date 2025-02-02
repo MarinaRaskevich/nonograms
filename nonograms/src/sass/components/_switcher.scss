@@ -1,48 +1,61 @@
-.mode__input {
-  height: 0;
-  width: 0;
-  visibility: hidden;
-}
-
 .mode__label {
   cursor: pointer;
-  text-indent: -9999px;
   width: 55px;
   height: 30px;
   background: black;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
   align-items: center;
-  -webkit-border-radius: 100px;
-  -moz-border-radius: 100px;
   border-radius: 100px;
   position: relative;
+  padding: 0 10px;
 }
 
-.mode__label:after {
+.mode__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mode__label::before {
   content: "";
-  background: #fff;
-  width: 20px;
-  height: 20px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
+  background: url(../img/icons/sun.svg) no-repeat center;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: 5px;
+  transition: opacity 0.3s;
+}
+
+.mode__label::after {
+  content: "";
+  background: url(../img/icons/lune.svg) no-repeat center;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 5px;
+  transition: opacity 0.3s;
+}
+
+.mode__label span {
   position: absolute;
   top: 5px;
   left: 4px;
-  transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .mode__input:checked + .mode__label {
   background: rgb(255, 215, 0);
 }
 
-.mode__input:checked + .mode__label:after {
-  left: calc(100% - 5px);
-  -webkit-transform: translateX(-100%);
-  -moz-transform: translateX(-100%);
-  -ms-transform: translateX(-100%);
-  -o-transform: translateX(-100%);
-  transform: translateX(-100%);
+.mode__input:checked + .mode__label span {
+  left: calc(100% - 25px);
+  transform: none;
 }
