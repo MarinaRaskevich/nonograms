@@ -112,6 +112,11 @@ html {
   .gh__link {
     color: white;
   }
+  .modal {
+    background-color: rgb(20, 20, 20);
+    background-image: none;
+    color: white;
+  }
 }
 
 h1,
@@ -126,7 +131,8 @@ h1 {
 
 .level,
 h2,
-.picture-name {
+.picture-name,
+.win__message {
   @include font($size: 2rem, $height: 3.648rem, $spacing: 0.384rem);
   @include media-small-device {
     @include font($size: 1.5rem, $height: 3.648rem, $spacing: 0.1rem);

@@ -64,8 +64,8 @@
 
 .copyright {
   margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  @include flex($justify: center, $align: center, $gap: 4px);
+  @include media-small-device {
+    @include flex($direction: column);
+  }
 }

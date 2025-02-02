@@ -6,6 +6,7 @@ import {
   getElapsedTime,
 } from "../models/timer";
 import { saveWinRecord } from "../models/storage";
+import { buildWinModal } from "../models/winModal";
 
 export class Nonogram {
   constructor(
@@ -130,6 +131,7 @@ export class Nonogram {
     });
 
     cell.addEventListener("contextmenu", (e) => {
+      console.log(true);
       e.preventDefault();
       if (this.isFirstClick) {
         startTimer();
@@ -144,7 +146,8 @@ export class Nonogram {
   };
 
   updateUserGrid(row, col, value) {
-    this.userGrid[row][col] = value;
+    this.userGrid[row][col] = this.userGrid[row][col] === value ? 0 : 1;
+    console.log(this.userGrid);
     this.checkWin();
   }
 
@@ -156,6 +159,7 @@ export class Nonogram {
     if (isWin) {
       stopTimer();
       saveWinRecord(this.name, this.difficulty, getElapsedTime());
+      buildWinModal(this.name, this.difficulty, getElapsedTime());
     }
   }
 
