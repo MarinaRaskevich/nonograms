@@ -11,5 +11,9 @@ window.onload = function () {
     (picture) => picture.difficulty === "easy"
   );
   const selectedTemplate = easyImages[0];
+  console.log("Bug matrix: ");
+  console.log(selectedTemplate.gridData);
+  console.log("Question matrix: ");
+  console.log(pictures[0].gridData);
   buildGrid(selectedTemplate);
 };
