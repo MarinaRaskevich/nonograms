@@ -10,7 +10,7 @@ import { checkSoundMode, toggleSoundMode } from "./sounds.js";
 export const buildGameScreen = (levels) => {
   //Main dom elements
   const body = document.querySelector("body");
-  body.classList.add("app", "light-mode");
+  body.classList.add("app");
   const bodyWrapper = createElement("div", ["app__wrapper"]);
   const appHeader = createElement("h1", ["header"], "Nonograms");
   const gameContainer = createElement("div", ["game"]);
@@ -25,16 +25,15 @@ export const buildGameScreen = (levels) => {
 
   //Mode switcher
   const modeSwitcherDiv = createElement("div", ["settings__mode"]);
-  const modeSwitcherHeader = createElement(
-    "div",
-    ["mode__header"],
-    "Light/Dark mode"
-  );
   const modeSwitcherInput = createElement("input", ["mode__input"]);
   modeSwitcherInput.setAttribute("type", "checkbox");
   modeSwitcherInput.id = "switcher";
   modeSwitcherInput.name = "mode";
   modeSwitcherInput.addEventListener("change", modeSwitcher);
+  if (localStorage.getItem("darkMode") === "enabled") {
+    modeSwitcherInput.checked = true;
+    body.classList.add("dark-mode");
+  }
   const modeSwitcherLabel = createElement("label", ["mode__label"]);
   const spanLabel = createElement("span", []);
   modeSwitcherLabel.setAttribute("for", "switcher");

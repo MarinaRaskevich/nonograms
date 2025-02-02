@@ -17,11 +17,33 @@
 .cell {
   position: relative;
   background-color: white;
+  @extend %cell-border;
 }
 
 .clue {
   background-color: #fff7cf;
   @include flex($justify: center, $align: center);
+  @extend %cell-border;
+}
+
+.right-border {
+  border-right: $divider-border;
+}
+.top-border {
+  border-top: $divider-border;
+}
+
+.left-border {
+  border-left: $divider-border;
+}
+
+.bottom-border {
+  border-bottom: $divider-border;
+}
+
+.filled,
+.line {
+  background-color: black;
 }
 
 .picture-name {

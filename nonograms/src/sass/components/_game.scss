@@ -64,6 +64,7 @@
 
 .game__settings {
   @include flex($justify: center, $align: center, $gap: 4px);
+  margin-bottom: 10px;
 }
 
 .settings__mode {

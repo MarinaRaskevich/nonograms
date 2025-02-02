@@ -21,34 +21,8 @@ html {
   min-height: 100vh;
   margin: auto;
   display: flex;
-}
-
-.light-mode {
   color: black;
   background-color: white;
-  .cell,
-  .clue {
-    @extend %cell-border;
-  }
-  .right-border {
-    border-right: $divider-border;
-  }
-  .top-border {
-    border-top: $divider-border;
-  }
-
-  .left-border {
-    border-left: $divider-border;
-  }
-
-  .bottom-border {
-    border-bottom: $divider-border;
-  }
-
-  .filled,
-  .line {
-    background-color: black;
-  }
 }
 
 .dark-mode {
