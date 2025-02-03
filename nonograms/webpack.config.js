@@ -38,6 +38,13 @@ module.exports = (env, options) => {
           type: "asset/resource",
         },
         {
+          test: /\.mp3$/i,
+          type: "asset/resource",
+          generator: {
+            filename: "sounds/[name][hash][ext][query]",
+          },
+        },
+        {
           test: /\.(woff|woff2)$/,
           type: "asset/resource",
           generator: {
