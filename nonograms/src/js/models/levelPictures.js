@@ -13,6 +13,11 @@ export const showLevelPictures = (e) => {
   timer.classList.add("hidden");
   const level = e.target.dataset.level;
   const nonogram = document.querySelector(".nonogram");
+  const mediaQuery = window.matchMedia("(max-width: 820px)");
+  if (mediaQuery.matches) {
+    const tapSwitcher = document.querySelector(".tap-mode");
+    tapSwitcher.classList.add("hidden");
+  }
   const pictureHeader = document.querySelector(".main__header");
   pictureHeader.textContent = "";
   nonogram.textContent = "";

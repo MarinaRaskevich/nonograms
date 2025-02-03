@@ -30,6 +30,10 @@
   background-color: #ffe23e;
 }
 
+.btn:disabled {
+  background-color: #f1e494;
+}
+
 .btn:disabled:hover,
 .btn:disabled:focus {
   pointer-events: none;

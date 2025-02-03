@@ -13,7 +13,11 @@ export const buildGrid = (input) => {
   const timer = document.querySelector(".timer");
   timer.textContent = getTime();
   timer.classList.remove("hidden");
-
+  const mediaQuery = window.matchMedia("(max-width: 820px)");
+  if (mediaQuery.matches) {
+    const tapSwitcher = document.querySelector(".tap-mode");
+    tapSwitcher.classList.remove("hidden");
+  }
   let selectedTemplate;
   let pictureId;
   if (input instanceof Event) {

@@ -14,7 +14,11 @@ export const showScoreTable = () => {
   gameActionButtons.forEach((button) => {
     button.disabled = true;
   });
-
+  const mediaQuery = window.matchMedia("(max-width: 820px)");
+  if (mediaQuery.matches) {
+    const tapSwitcher = document.querySelector(".tap-mode");
+    tapSwitcher.classList.add("hidden");
+  }
   pictureHeader.textContent = "High score table";
   const solvedPicturesTable = createElement("table");
   const solvedPicturesTableBody = createElement("tbody");
