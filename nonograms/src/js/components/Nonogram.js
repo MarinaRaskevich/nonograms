@@ -9,6 +9,9 @@ import { saveWinRecord } from "../models/storage";
 import { buildWinModal } from "../models/winModal";
 import { playSound } from "../models/sounds";
 
+export let currentGame = null;
+const mediaQuery = window.matchMedia("(max-width: 820px)");
+
 export class Nonogram {
   constructor(
     container,
@@ -25,10 +28,11 @@ export class Nonogram {
     this.maxLengthRow = null;
     this.isFirstClick = true;
     this.isGameOver = false;
-
+    this.isFillMode = true;
     this.userGrid = Array.from({ length: gridSize }, () =>
       Array(gridSize).fill(0)
     );
+    currentGame = this;
   }
 
   renderGrid() {
@@ -127,13 +131,30 @@ export class Nonogram {
         startTimer();
         this.isFirstClick = false;
       }
-
-      cell.classList.remove("crossed");
-      this.toggleClass(cell, "filled");
-      this.updateUserGrid(rowIndex, colIndex, 1);
-      cell.classList.contains("filled")
-        ? playSound("cellFill")
-        : playSound("cellClear");
+      if (mediaQuery.matches) {
+        if (this.isFillMode) {
+          cell.classList.remove("crossed");
+          this.toggleClass(cell, "filled");
+          this.updateUserGrid(rowIndex, colIndex, 1);
+          playSound(
+            cell.classList.contains("filled") ? "cellFill" : "cellClear"
+          );
+        } else {
+          cell.classList.remove("filled");
+          this.toggleClass(cell, "crossed");
+          this.updateUserGrid(rowIndex, colIndex, 0);
+          playSound(
+            cell.classList.contains("crossed") ? "cellCross" : "cellClear"
+          );
+        }
+      } else {
+        cell.classList.remove("crossed");
+        this.toggleClass(cell, "filled");
+        this.updateUserGrid(rowIndex, colIndex, 1);
+        cell.classList.contains("filled")
+          ? playSound("cellFill")
+          : playSound("cellClear");
+      }
     });
 
     cell.addEventListener("contextmenu", (e) => {
@@ -191,6 +212,10 @@ export class Nonogram {
 
   toggleClass(element, className) {
     element.classList.toggle(className);
+  }
+
+  setFillMode(isFillMode) {
+    this.isFillMode = isFillMode;
   }
 
   resetGrid() {

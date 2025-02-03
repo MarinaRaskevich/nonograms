@@ -1,6 +1,5 @@
 import { createElement } from "./utils";
-import { resetTimer } from "./timer";
-import { modeSwitcher } from "./modeSwitcher.js";
+import { modeSwitcher, tapSwitcher } from "./switchers.js";
 import { showLevelPictures } from "./levelPictures.js";
 import { randomGame } from "./randomGame.js";
 import { loadGame, checkLocalStorage } from "./storage.js";
@@ -27,7 +26,7 @@ export const buildGameScreen = (levels) => {
   const modeSwitcherDiv = createElement("div", ["settings__mode"]);
   const modeSwitcherInput = createElement("input", ["mode__input"]);
   modeSwitcherInput.setAttribute("type", "checkbox");
-  modeSwitcherInput.id = "switcher";
+  modeSwitcherInput.id = "modeSwitcher";
   modeSwitcherInput.name = "mode";
   modeSwitcherInput.addEventListener("change", modeSwitcher);
   if (localStorage.getItem("darkMode") === "enabled") {
@@ -36,7 +35,7 @@ export const buildGameScreen = (levels) => {
   }
   const modeSwitcherLabel = createElement("label", ["mode__label"]);
   const spanLabel = createElement("span", []);
-  modeSwitcherLabel.setAttribute("for", "switcher");
+  modeSwitcherLabel.setAttribute("for", "modeSwitcher");
   modeSwitcherLabel.appendChild(spanLabel);
   modeSwitcherDiv.append(modeSwitcherInput, modeSwitcherLabel);
 
@@ -127,12 +126,26 @@ export const buildGameScreen = (levels) => {
     "© Copyright 2025"
   );
   copyrightDiv.append(copyright, githubLink);
+
   //Central container (nonograms names or game)
   const nonogram = createElement("div", ["nonogram"]);
   const timer = createElement("div", ["timer"]);
   const pictureHeader = createElement("h3", ["main__header"]);
   pictureHeader.classList.add("hidden");
-  centralContainer.append(timer, pictureHeader, nonogram);
+
+  //Cell click switcher
+  const tapSwitcherDiv = createElement("div", ["tap-mode"]);
+  const tapSwitcherInput = createElement("input", ["tap-mode__input"]);
+  tapSwitcherInput.setAttribute("type", "checkbox");
+  tapSwitcherInput.addEventListener("change", tapSwitcher);
+  tapSwitcherInput.id = "tapSwitcher";
+  const tapSwitcherLabel = createElement("label", ["tap-mode__label"]);
+  const tapSwitcherSpanLabel = createElement("span", []);
+  tapSwitcherLabel.setAttribute("for", "tapSwitcher");
+  tapSwitcherLabel.appendChild(tapSwitcherSpanLabel);
+  tapSwitcherDiv.append(tapSwitcherInput, tapSwitcherLabel);
+
+  centralContainer.append(timer, pictureHeader, nonogram, tapSwitcherDiv);
   gameContainer.append(leftContainer, centralContainer, rightContainer);
   bodyWrapper.append(appHeader, gameContainer, copyrightDiv);
   body.append(bodyWrapper);

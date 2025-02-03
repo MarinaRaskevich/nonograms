@@ -1,0 +1,71 @@
+@use "../abstracts/index" as *;
+
+.tap-mode {
+  display: none;
+  @include media-small-device {
+    margin-top: 20px;
+    display: block;
+  }
+}
+
+.tap-mode__label {
+  cursor: pointer;
+  width: 110px;
+  height: 60px;
+  background: #ffe23e;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  position: relative;
+  padding: 0 10px;
+}
+
+.tap-mode__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.tap-mode__label::before {
+  content: "";
+  background: url(../img/icons/carre.svg) no-repeat center;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 15px;
+  transition: opacity 0.3s;
+}
+
+.tap-mode__label::after {
+  content: "";
+  background: url(../img/icons/croix.svg) no-repeat center;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 16px;
+  transition: opacity 0.3s;
+}
+
+.tap-mode__label span {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 45px;
+  height: 45px;
+  border: 2px solid black;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.tap-mode__input:checked + .tap-mode__label {
+  border: 1px solid white;
+}
+
+.tap-mode__input:checked + .tap-mode__label span {
+  left: calc(100% - 53px);
+  transform: none;
+}

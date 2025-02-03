@@ -21,7 +21,7 @@
 }
 
 .clue {
-  background-color: #fff7cf;
+  background-color: #ffe23e;
   @include flex($justify: center, $align: center);
   @extend %cell-border;
 }
