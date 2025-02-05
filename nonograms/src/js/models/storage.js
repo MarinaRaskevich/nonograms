@@ -62,6 +62,5 @@ export const saveWinRecord = (name, difficulty, time) => {
 
   savedRecords.sort((a, b) => a.time - b.time);
   savedRecords = savedRecords.slice(0, 5);
-  console.log(savedRecords);
   localStorage.setItem("nonogramRecords", JSON.stringify(savedRecords));
 };

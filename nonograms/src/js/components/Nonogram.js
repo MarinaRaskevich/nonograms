@@ -196,6 +196,7 @@ export class Nonogram {
   }
 
   showSolution() {
+    this.isGameOver = true;
     stopTimer();
     this.container.querySelectorAll(".cell").forEach((cell) => {
       const row = parseInt(cell.dataset.row, 10);
@@ -220,6 +221,10 @@ export class Nonogram {
 
   resetGrid() {
     this.isGameOver = false;
+    this.isFirstClick = true;
+    this.userGrid = Array.from({ length: this.gridSize }, () =>
+      Array(this.gridSize).fill(0)
+    );
     resetTimer();
     this.container.querySelectorAll(".cell").forEach((cell) => {
       cell.classList.remove("filled", "crossed");
